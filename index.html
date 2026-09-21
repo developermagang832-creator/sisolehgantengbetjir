@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Undang-Undang - Kepolisian Nexotis</title>
+<meta name="description" content="Daftar pasal resmi dan kalkulator denda & hukuman Kepolisian Nexotis.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="flag">🚔</span>
+      <div>
+        <h1>Kepolisian Nexotis</h1>
+        <p>Kodifikasi Hukum Internal</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>📖 Kodifikasi Hukum Internal</h2>
+      <div class="sub">Sistem pencatatan pelanggaran, akumulasi sanksi &amp; pengarsipan berkas perkara.</div>
+
+      <a href="https://san-anderas-police.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary" style="display:inline-block;text-decoration:none;margin-bottom:14px">🌐 Goto Website Kepolisian</a>
+
+      <div class="filter-pills" id="filterBar">
+        <button class="filter-btn active" data-cat="0"><span class="swatch"></span>Semua</button>
+        <button class="filter-btn" data-cat="1"><span class="swatch"></span>Pasal A - Lalu Lintas</button>
+        <button class="filter-btn" data-cat="2"><span class="swatch"></span>Pasal B - Pelanggaran Umum</button>
+        <button class="filter-btn" data-cat="3"><span class="swatch"></span>Pasal C - Kejahatan Properti</button>
+        <button class="filter-btn" data-cat="4"><span class="swatch"></span>Pasal D - Narkotika</button>
+        <button class="filter-btn" data-cat="5"><span class="swatch"></span>Pasal E - Senjata &amp; Barang Terlarang</button>
+        <button class="filter-btn" data-cat="6"><span class="swatch"></span>Pasal F - Kejahatan &amp; Terorisme</button>
+        <button class="filter-btn" data-cat="7"><span class="swatch"></span>Pasal G - Kejahatan Finansial</button>
+        <button class="filter-btn" data-cat="8"><span class="swatch"></span>Pasal H - Perilaku Tidak Wajar</button>
+      </div>
+    </div>
+
+    <div id="pasal-sections"></div>
+
+    <div class="card">
+      <h2>🧮 Kalkulator Kasus Finansial &amp; Sanksi</h2>
+      <div class="sub">Centang pasal di tabel atas — otomatis masuk ke ringkasan di bawah.</div>
+      <div id="kalkulator-empty" class="kalkulator-empty">Belum ada pasal dipilih.</div>
+      <div id="kalkulator-tags"></div>
+      <div class="kalkulator-summary">
+        <div class="stat-card money"><div class="label">Total Denda Kasus</div><div class="value" id="total-denda">$0</div></div>
+        <div class="stat-card hours"><div class="label">Masa Hukuman</div><div class="value" id="total-hukuman" style="font-size:14px">-</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <p>© Kepolisian Nexotis — Kodifikasi Hukum Internal</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
