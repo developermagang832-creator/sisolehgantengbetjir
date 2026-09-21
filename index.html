@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daftar Pasal &amp; Kalkulator Tilang - Kepolisian Kota Nexotis</title>
+<meta name="description" content="Daftar pasal resmi dan kalkulator tilang digital Kepolisian Kota Nexotis.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-badge">🚓</div>
+      <div class="brand-text">
+        <h1>Kepolisian Kota Nexotis</h1>
+        <p>Daftar Pasal &amp; Kalkulator Tilang</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="toolbar">
+  <div class="toolbar-inner">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" class="search-input" placeholder="Cari pasal atau nama pelanggaran...">
+    </div>
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-cat="0">Semua</button>
+      <button class="filter-btn" data-cat="1">Lalu Lintas</button>
+      <button class="filter-btn" data-cat="2">Ketertiban Umum</button>
+      <button class="filter-btn" data-cat="3">Kriminal</button>
+    </div>
+  </div>
+</section>
+
+<div class="notice">
+  ⚠️ Data pasal di bawah ini masih <strong>contoh (placeholder)</strong>. Ganti sesuai daftar pasal resmi Kepolisian Kota Nexotis di file <code>script.js</code>, bagian <code>DATA_PASAL</code>.
+</div>
+
+<main class="layout">
+  <div class="pasal-column" id="pasalColumn">
+
+    <section class="cat-section" data-cat="1">
+      <div class="cat-header">
+        <h2>Lalu Lintas</h2>
+        <span class="cat-count">0 pasal</span>
+      </div>
+      <div class="cat-grid" data-cat-grid="1"></div>
+    </section>
+
+    <section class="cat-section" data-cat="2">
+      <div class="cat-header">
+        <h2>Ketertiban Umum</h2>
+        <span class="cat-count">0 pasal</span>
+      </div>
+      <div class="cat-grid" data-cat-grid="2"></div>
+    </section>
+
+    <section class="cat-section" data-cat="3">
+      <div class="cat-header">
+        <h2>Kriminal</h2>
+        <span class="cat-count">0 pasal</span>
+      </div>
+      <div class="cat-grid" data-cat-grid="3"></div>
+    </section>
+
+    <p class="empty-state" id="emptyState" hidden>Tidak ada pasal yang cocok dengan pencarian/filter kamu.</p>
+  </div>
+
+  <aside class="calc-panel">
+    <div class="calc-card">
+      <h2>Kalkulator Tilang</h2>
+
+      <div class="field">
+        <label for="namaPelaku">Nama Pelaku</label>
+        <input type="text" id="namaPelaku" placeholder="Nama pelaku">
+      </div>
+      <div class="field">
+        <label for="namaPetugas">Nama Petugas</label>
+        <input type="text" id="namaPetugas" placeholder="Nama petugas">
+      </div>
+
+      <div class="selected-list" id="listPasalDipilih">
+        <em class="empty-note">Belum ada pasal dipilih</em>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-item">
+          <span>Jumlah Pasal</span>
+          <strong id="jumlahPasal">0</strong>
+        </div>
+        <div class="summary-item">
+          <span>Total Denda</span>
+          <strong id="totalDenda">$0</strong>
+        </div>
+        <div class="summary-item">
+          <span>Total Tahanan</span>
+          <strong id="totalTahanan">0 Bulan</strong>
+        </div>
+      </div>
+
+      <p class="special-note" id="specialNote"></p>
+
+      <div class="calc-actions">
+        <button id="btnCopyPasal" class="btn-ghost">Salin Pasal</button>
+        <button id="btnCopyDenda" class="btn-ghost">Salin Denda</button>
+        <button id="btnCopyTahanan" class="btn-ghost">Salin Tahanan</button>
+        <button id="btnCopySemua" class="btn-primary">Salin Surat Tilang</button>
+        <button id="btnResetPasal" class="btn-danger">Reset Semua</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <p>© Kepolisian Kota Nexotis — Sistem Digital Pasal &amp; Tilang</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
