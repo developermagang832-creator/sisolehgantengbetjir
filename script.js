@@ -1,238 +1,206 @@
 /* =========================================================
-   Kepolisian Kota Nexotis — Daftar Pasal & Kalkulator Tilang
+   Kepolisian Nexotis — Undang-Undang & Kalkulator
+   Data pasal diambil apa adanya dari undang-undang.html asli.
    ========================================================= */
 
-/* -----------------------------------------------------------
-   DATA PASAL (CONTOH / PLACEHOLDER)
-   Ganti isi array ini sesuai daftar pasal resmi kalian.
-   cat: 1 = Lalu Lintas, 2 = Ketertiban Umum, 3 = Kriminal
-   denda dalam angka (tanpa simbol $), bulan = lama tahanan,
-   note = catatan khusus opsional (kosongkan jika tidak ada)
-   ----------------------------------------------------------- */
-const DATA_PASAL = [
-  { cat: 1, kode: "Pasal 1",  nama: "Tidak Memakai Helm",                 denda: 500,  bulan: 0, note: "" },
-  { cat: 1, kode: "Pasal 2",  nama: "Melanggar Rambu Lalu Lintas",        denda: 750,  bulan: 0, note: "" },
-  { cat: 1, kode: "Pasal 3",  nama: "Melebihi Batas Kecepatan",           denda: 1000, bulan: 0, note: "" },
-  { cat: 1, kode: "Pasal 4",  nama: "Tidak Memiliki SIM",                 denda: 1500, bulan: 1, note: "" },
-  { cat: 1, kode: "Pasal 5",  nama: "Kendaraan Tidak Layak Jalan (STNK Mati)", denda: 600, bulan: 0, note: "" },
-  { cat: 1, kode: "Pasal 6",  nama: "Menerobos Lampu Merah",              denda: 850,  bulan: 0, note: "" },
+const PASAL_DATA = [
+  // --- PASAL A - LALU LINTAS ---
+  { kategori: 1, kode: "A01", pelanggaran: "Berkendara tidak memiliki SIM", denda: 10000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A02", pelanggaran: "Berkendara Secara Ugal-Ugalan", denda: 12000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A03", pelanggaran: "Parkir Sembarangan", denda: 15000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A04", pelanggaran: "Kendaraan tidak memiliki plat nomor", denda: 13500, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A05", pelanggaran: "Kabur dari Kecelakaan", denda: 18000, hukuman: "5 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A06", pelanggaran: "Kecelakaan hingga menimbulkan korban jiwa", denda: 50000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 2" },
+  { kategori: 1, kode: "A07", pelanggaran: "Mengemudi Melawan Arus", denda: 14000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A08", pelanggaran: "Mengangkut Penumpang Lebih dari Kapasitas", denda: 20000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A09", pelanggaran: "Menghindar saat diberhentikan petugas", denda: 17000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A10", pelanggaran: "Menabrak Rambu Lalu Lintass", denda: 12000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A11", pelanggaran: "Modifikasi Ilegal (Nitro & Knalpot Api)", denda: 14500, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A12", pelanggaran: "Balap Liar", denda: 45000, hukuman: "15 Bulan", deskripsi: "Penyitaan kendaraan: 2" },
+  { kategori: 1, kode: "A13", pelanggaran: "Menerobos barikade kepolisian", denda: 25000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A14", pelanggaran: "Mengemudi dalam keadaan mabuk", denda: 26500, hukuman: "5 Bulan", deskripsi: "Penyitaan kendaraan: 2" },
+  { kategori: 1, kode: "A15", pelanggaran: "Mengemudi dengan kecepatan berlebihan", denda: 10500, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
+  { kategori: 1, kode: "A16", pelanggaran: "Tidak memberikan prioritas pejalan kaki", denda: 22000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A17", pelanggaran: "Menggunakan ponsel saat mengemudi", denda: 15000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A18", pelanggaran: "Tidak menggunakan sabuk pengaman", denda: 15000, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 0" },
+  { kategori: 1, kode: "A19", pelanggaran: "Melanggar lampu lalu lintas", denda: 10500, hukuman: "0 Bulan", deskripsi: "Penyitaan kendaraan: 1" },
 
-  { cat: 2, kode: "Pasal 7",  nama: "Membuat Keributan di Tempat Umum",   denda: 800,  bulan: 0, note: "" },
-  { cat: 2, kode: "Pasal 8",  nama: "Mabuk di Tempat Umum",               denda: 1000, bulan: 1, note: "" },
-  { cat: 2, kode: "Pasal 9",  nama: "Merokok di Area Dilarang Merokok",   denda: 300,  bulan: 0, note: "" },
-  { cat: 2, kode: "Pasal 10", nama: "Vandalisme Fasilitas Umum",          denda: 1200, bulan: 1, note: "" },
+  // --- PASAL B - PELANGGARAN UMUM ---
+  { kategori: 2, kode: "B01", pelanggaran: "Kekerasan Ringan", denda: 25000, hukuman: "10 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B02", pelanggaran: "Meludah Sembarangan", denda: 10500, hukuman: "5 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B03", pelanggaran: "Buang air sembarangan", denda: 11000, hukuman: "5 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B04", pelanggaran: "Mengganggu / menipu petugas", denda: 16000, hukuman: "8 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B05", pelanggaran: "Menyebarkan ujaran buruk", denda: 30000, hukuman: "12 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B06", pelanggaran: "Berkelahi ditempat umum", denda: 17500, hukuman: "15 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B07", pelanggaran: "Gangguan Ketertiban Umum", denda: 19000, hukuman: "10 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B08", pelanggaran: "Pencurian", denda: 30000, hukuman: "18 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B09", pelanggaran: "Vandalisme", denda: 25000, hukuman: "13 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B10", pelanggaran: "Atribut instansi secara ilegal", denda: 17500, hukuman: "8 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B11", pelanggaran: "Menyamar sebagai petugas", denda: 18000, hukuman: "10 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B12", pelanggaran: "Percobaan suap terhadap petugas", denda: 18500, hukuman: "12 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B13", pelanggaran: "Laporan/informasi palsu", denda: 15000, hukuman: "12 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B14", pelanggaran: "Memiliki hewan dilindungi", denda: 55000, hukuman: "13 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B15", pelanggaran: "Memperjualbelikan hewan dilindungi", denda: 70000, hukuman: "15 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B16", pelanggaran: "Mengumpulkan massa kekacauan", denda: 95000, hukuman: "25 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B17", pelanggaran: "Ikut dalam kerusuhan", denda: 100000, hukuman: "20 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B18", pelanggaran: "Menolak membubarkan diri", denda: 20000, hukuman: "8 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B19", pelanggaran: "Penghakiman sepihak", denda: 85000, hukuman: "20 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B20", pelanggaran: "Berburu tanpa lisensi", denda: 65000, hukuman: "15 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B21", pelanggaran: "Melanggar jam malam", denda: 11000, hukuman: "5 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B22", pelanggaran: "Ganggu ketenteraman (suara keras)", denda: 11500, hukuman: "8 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B23", pelanggaran: "Menghina simbol negara/instansi", denda: 75000, hukuman: "15 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B24", pelanggaran: "Menolak perintah sah petugas", denda: 85000, hukuman: "10 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B25", pelanggaran: "Tindakan asusila di tempat umum", denda: 95000, hukuman: "12 Bulan", deskripsi: "Pelanggaran Umum" },
+  { kategori: 2, kode: "B26", pelanggaran: "Mencoba melarikan diri", denda: 19500, hukuman: "10 Bulan", deskripsi: "Pelanggaran Umum" },
 
-  { cat: 3, kode: "Pasal 11", nama: "Kepemilikan Senjata Api Ilegal",     denda: 5000, bulan: 6, note: "Wajib sita senjata" },
-  { cat: 3, kode: "Pasal 12", nama: "Percobaan Pencurian",                denda: 3000, bulan: 3, note: "" },
-  { cat: 3, kode: "Pasal 13", nama: "Penganiayaan Ringan",                denda: 4000, bulan: 4, note: "" },
-  { cat: 3, kode: "Pasal 14", nama: "Ancaman Kekerasan",                  denda: 2500, bulan: 2, note: "" },
+  // --- PASAL C - KEJAHATAN PROPERTI ---
+  { kategori: 3, kode: "C01", pelanggaran: "Memasuki properti pribadi tanpa izin", denda: 13000, hukuman: "0 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C02", pelanggaran: "Memasuki properti pemerintah tanpa izin", denda: 15000, hukuman: "0 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C03", pelanggaran: "Merusak properti pribadi/pemerintah", denda: 35000, hukuman: "0 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C04", pelanggaran: "Membakar properti", denda: 32000, hukuman: "25 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C05", pelanggaran: "Distribusi barang ilegal di properti", denda: 39000, hukuman: "0 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C06", pelanggaran: "Membobol properti (niat mencuri)", denda: 40000, hukuman: "23 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C07", pelanggaran: "Graffiti tanpa izin", denda: 33000, hukuman: "8 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C08", pelanggaran: "Poster/spanduk tanpa izin", denda: 29000, hukuman: "5 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C09", pelanggaran: "Mengganggu properti bersama", denda: 27000, hukuman: "12 Bulan", deskripsi: "Kejahatan Properti" },
+  { kategori: 3, kode: "C10", pelanggaran: "Mengubah fungsi properti tanpa izin", denda: 50000, hukuman: "0 Bulan", deskripsi: "Kejahatan Properti" },
+
+  // --- PASAL D - NARKOTIKA ---
+  { kategori: 4, kode: "D01", pelanggaran: "Berada ditempat narkotika", denda: 20000, hukuman: "15 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D02", pelanggaran: "Pembuatan narkotika", denda: 70000, hukuman: "20 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D03", pelanggaran: "Menjual/distribusi narkotika", denda: 80000, hukuman: "30 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D04-1", pelanggaran: "Kanabis [1-10 pcs]", denda: 10000, hukuman: "15 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D04-2", pelanggaran: "Kanabis [11-25 pcs]", denda: 15000, hukuman: "16 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D04-3", pelanggaran: "Kanabis [>25 pcs]", denda: 25000, hukuman: "20 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D05-1", pelanggaran: "Marijuana [1-5 pcs]", denda: 30000, hukuman: "25 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D05-2", pelanggaran: "Marijuana [6-10 pcs]", denda: 35000, hukuman: "30 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D05-3", pelanggaran: "Marijuana [>10 pcs]", denda: 40000, hukuman: "35 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D06", pelanggaran: "Peralatan konsumsi narkotika", denda: 22000, hukuman: "12 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D07", pelanggaran: "Transportasi bahan kimia narkotika", denda: 55000, hukuman: "25 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D08", pelanggaran: "Resep palsu narkotika", denda: 47000, hukuman: "18 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D09", pelanggaran: "Pencabutan Kanabis", denda: 25000, hukuman: "15 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D10", pelanggaran: "Kepemilikan Srimulat", denda: 10000, hukuman: "10 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D11", pelanggaran: "Kepemilikan Sabu", denda: 10000, hukuman: "13 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+  { kategori: 4, kode: "D12", pelanggaran: "Narkotika di bagasi kendaraan", denda: 15000, hukuman: "13 Bulan", deskripsi: "Tindak Pidana Narkotika" },
+
+  // --- PASAL E - SENJATA & BARANG ILEGAL ---
+  { kategori: 5, kode: "E01", pelanggaran: "Senjata tajam / tumpul", denda: 60000, hukuman: "10 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E02-1", pelanggaran: "Senpi ilegal (FIRST CLASS)", denda: 65000, hukuman: "12 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E02-2", pelanggaran: "Senpi ilegal (SECOND CLASS)", denda: 75000, hukuman: "15 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E02-3", pelanggaran: "Senpi ilegal (THIRD CLASS)", denda: 85000, hukuman: "20 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E03", pelanggaran: "Kepemilikan kevlar", denda: 25000, hukuman: "10 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E05", pelanggaran: "Bahan peledak ilegal", denda: 100000, hukuman: "30 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+  { kategori: 5, kode: "E07", pelanggaran: "Uang Merah (0-5k)", denda: 15000, hukuman: "14 Bulan", deskripsi: "Kepemilikan uang ilegal" },
+  { kategori: 5, kode: "E08", pelanggaran: "Uang Merah (5k-20k)", denda: 18000, hukuman: "16 Bulan", deskripsi: "Kepemilikan uang ilegal" },
+  { kategori: 5, kode: "E09", pelanggaran: "Uang Merah (20k-50k)", denda: 25000, hukuman: "20 Bulan", deskripsi: "Kepemilikan uang ilegal" },
+  { kategori: 5, kode: "E10", pelanggaran: "Uang Merah (50k-100k)", denda: 30000, hukuman: "25 Bulan", deskripsi: "Kepemilikan uang ilegal" },
+  { kategori: 5, kode: "E11", pelanggaran: "Uang Merah (100k-200k)", denda: 40000, hukuman: "30 Bulan", deskripsi: "Kepemilikan uang ilegal" },
+  { kategori: 5, kode: "E12", pelanggaran: "Barang tindakan kriminal", denda: 15000, hukuman: "15 Bulan", deskripsi: "Kepemilikan barang ilegal" },
+
+  // --- PASAL F - KEJAHATAN BERAT ---
+  { kategori: 6, kode: "F01", pelanggaran: "Pembegalan", denda: 50000, hukuman: "15 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F02", pelanggaran: "Perampokan Warung", denda: 55000, hukuman: "17 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F03", pelanggaran: "Pencurian Mobil", denda: 40000, hukuman: "12 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F04", pelanggaran: "Penyerangan instansi bertugas", denda: 26000, hukuman: "10 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F05", pelanggaran: "Penyanderaan warga/instansi", denda: 70000, hukuman: "15 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F06", pelanggaran: "Peperangan bersenjata kelompok", denda: 75000, hukuman: "25 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F08", pelanggaran: "Perampokan bersenjata", denda: 100000, hukuman: "30 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F11", pelanggaran: "Terorisme", denda: 100000, hukuman: "30 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F13", pelanggaran: "Pembunuhan", denda: 100000, hukuman: "30 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F15", pelanggaran: "Perampokan Bank Flecca", denda: 25000, hukuman: "30 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+  { kategori: 6, kode: "F16", pelanggaran: "Penembakan warga/polisi", denda: 35000, hukuman: "40 Bulan", deskripsi: "Tindak Kejahatan Berat" },
+
+  // --- PASAL G - FINANSIAL ---
+  { kategori: 7, kode: "G01", pelanggaran: "Pencucian uang", denda: 100000, hukuman: "20 Bulan", deskripsi: "Kejahatan Finansial" },
+  { kategori: 7, kode: "G02", pelanggaran: "Penipuan bisnis", denda: 20000, hukuman: "15 Bulan", deskripsi: "Kejahatan Finansial" },
+  { kategori: 7, kode: "G03", pelanggaran: "Pemalsuan dokumen keuangan", denda: 15000, hukuman: "18 Bulan", deskripsi: "Kejahatan Finansial" },
+  { kategori: 7, kode: "G04", pelanggaran: "Penghindaran pajak", denda: 13000, hukuman: "12 Bulan", deskripsi: "Kejahatan Finansial" },
+  { kategori: 7, kode: "G06", pelanggaran: "Penyelundupan barang", denda: 45000, hukuman: "20 Bulan", deskripsi: "Kejahatan Finansial" },
+
+  // --- PASAL H - PELANGGARAN PERILAKU ---
+  { kategori: 8, kode: "H01", pelanggaran: "Membahayakan Diri Sendiri", denda: 30000, hukuman: "5 Bulan", deskripsi: "Pelanggaran Perilaku" },
+  { kategori: 8, kode: "H03", pelanggaran: "Penyerangan Tanpa Motif Jelas", denda: 85000, hukuman: "15 Bulan", deskripsi: "Pelanggaran Perilaku" },
+  { kategori: 8, kode: "H04", pelanggaran: "Kendaraan sebagai Senjata", denda: 95000, hukuman: "12 Bulan", deskripsi: "Pelanggaran Perilaku" },
+  { kategori: 8, kode: "H05", pelanggaran: "Tindakan Provokatif", denda: 55000, hukuman: "0 Bulan", deskripsi: "Pelanggaran Perilaku" },
 ];
 
-/* ================= RENDER DAFTAR PASAL ================= */
-function buatKartuPasal(p) {
-  const label = document.createElement("label");
-  label.className = "citation-item";
-  label.dataset.cat = p.cat;
-  label.dataset.search = (p.kode + " " + p.nama).toLowerCase();
+const fmtUang = (n) => "$" + Number(n).toLocaleString("en-US");
 
-  const extra = p.note ? `<div class="citation-extra">⚠️ ${p.note}</div>` : "";
-
-  label.innerHTML = `
-    <input type="checkbox" class="pasal-check"
-      data-pasal="${p.kode}" data-nama="${p.nama}"
-      data-denda="${p.denda}" data-bulan="${p.bulan}" data-text="${p.note}">
-    <div class="citation-body">
-      <div class="citation-top">
-        <span class="pasal-code">${p.kode}</span>
-        <span class="citation-price">$${p.denda.toLocaleString("id-ID")}</span>
-      </div>
-      <div class="citation-name">${p.nama}</div>
-      ${extra}
-    </div>`;
-  return label;
+function renderPasalSections() {
+  const mount = document.getElementById("pasal-sections");
+  const kategoriIds = [...new Set(PASAL_DATA.map((p) => p.kategori))].sort((a, b) => a - b);
+  mount.innerHTML = kategoriIds.map((kid) => {
+    const btnLabel = document.querySelector(`.filter-btn[data-cat="${kid}"]`);
+    const judul = btnLabel ? btnLabel.textContent.trim() : "Pasal " + kid;
+    const rows = PASAL_DATA.filter((p) => p.kategori === kid).map((p) => `
+      <tr>
+        <td class="chk"><input type="checkbox" data-kode="${p.kode}" onchange="toggleFasal('${p.kode}', this.checked)"></td>
+        <td><strong>${p.kode}</strong></td>
+        <td>${p.pelanggaran}</td>
+        <td class="denda">${fmtUang(p.denda)}</td>
+        <td class="hukuman">${p.hukuman}</td>
+        <td class="deskripsi">${p.deskripsi}</td>
+      </tr>`).join("");
+    return `
+      <div class="card pasal-section" data-cat="${kid}">
+        <h3>${judul}</h3>
+        <div style="overflow-x:auto">
+          <table class="pasal-table">
+            <thead><tr><th></th><th>Pasal</th><th>Tindak Pelanggaran</th><th>Denda</th><th>Hukuman</th><th>Deskripsi Kasus</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join("");
+  applyFilter("0");
 }
 
-function renderPasal() {
-  [1, 2, 3].forEach((cat) => {
-    const grid = document.querySelector(`[data-cat-grid="${cat}"]`);
-    grid.innerHTML = "";
-    DATA_PASAL.filter((p) => p.cat === cat).forEach((p) => {
-      grid.appendChild(buatKartuPasal(p));
-    });
+function applyFilter(cat) {
+  document.querySelectorAll(".filter-btn").forEach((b) => b.classList.toggle("active", b.dataset.cat === cat));
+  document.querySelectorAll(".pasal-section").forEach((s) => {
+    s.classList.toggle("show", cat === "0" || s.dataset.cat === cat);
   });
 }
-renderPasal();
 
-/* ================= FILTER (kategori + pencarian) ================= */
-const sections    = document.querySelectorAll(".cat-section");
-const filterBtns  = document.querySelectorAll("#filterBar .filter-btn");
-const searchInput = document.getElementById("searchInput");
-const emptyState  = document.getElementById("emptyState");
-let activeCat = "0";
-
-function applyFilters() {
-  const q = searchInput.value.trim().toLowerCase();
-  let anyVisible = 0;
-
-  sections.forEach((section) => {
-    let visibleCount = 0;
-    section.querySelectorAll(".citation-item").forEach((item) => {
-      const matchesCat = activeCat === "0" || item.dataset.cat === activeCat;
-      const matchesSearch = q === "" || item.dataset.search.includes(q);
-      const show = matchesCat && matchesSearch;
-      item.style.display = show ? "" : "none";
-      if (show) { visibleCount++; anyVisible++; }
-    });
-    section.style.display = visibleCount > 0 ? "" : "none";
-    const countEl = section.querySelector(".cat-count");
-    if (countEl) countEl.textContent = visibleCount + " pasal";
-  });
-
-  emptyState.hidden = anyVisible > 0;
-}
-
-filterBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    filterBtns.forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeCat = btn.dataset.cat;
-    applyFilters();
-  });
+document.querySelectorAll(".filter-btn").forEach((btn) => {
+  btn.addEventListener("click", () => applyFilter(btn.dataset.cat));
 });
-searchInput.addEventListener("input", applyFilters);
-applyFilters();
 
-/* ================= KALKULATOR TILANG ================= */
-const listEl         = document.getElementById("listPasalDipilih");
-const totalDendaEl   = document.getElementById("totalDenda");
-const totalTahananEl = document.getElementById("totalTahanan");
-const jumlahPasalEl  = document.getElementById("jumlahPasal");
-const specialNoteEl  = document.getElementById("specialNote");
-const namaPelaku     = document.getElementById("namaPelaku");
-const namaPetugas    = document.getElementById("namaPetugas");
+/* ====== Kalkulator ====== */
+const pasalTerpilih = new Set();
 
-function formatUang(n) {
-  return "$" + n.toLocaleString("id-ID");
+function toggleFasal(kode, checked) {
+  if (checked) pasalTerpilih.add(kode); else pasalTerpilih.delete(kode);
+  renderKalkulator();
 }
 
-let salinPasalText   = "";
-let salinDendaText   = "";
-let salinTahananText = "";
-let salinSemuaText   = "";
-
-function hitung() {
-  let totalDenda = 0;
-  let totalBulan = 0;
-  let dipilih = [];
-  let specialTexts = [];
-  let pasalTextLines = [];
-  let pasalCodes = [];
-
-  document.querySelectorAll(".pasal-check").forEach((cb) => {
-    const item = cb.closest(".citation-item");
-    if (cb.checked) {
-      item.classList.add("is-checked");
-
-      const denda = parseInt(cb.dataset.denda, 10) || 0;
-      const bulan = parseInt(cb.dataset.bulan, 10) || 0;
-      const text  = cb.dataset.text || "";
-
-      totalDenda += denda;
-      totalBulan += bulan;
-      if (text) specialTexts.push(cb.dataset.pasal + ": " + text);
-
-      dipilih.push(
-        `<div class="selected-line"><span class="pasal-code">${cb.dataset.pasal}</span><span>${cb.dataset.nama}</span></div>`
-      );
-
-      pasalTextLines.push(`${cb.dataset.pasal} - ${cb.dataset.nama}`);
-      pasalCodes.push(cb.dataset.pasal);
-    } else {
-      item.classList.remove("is-checked");
-    }
-  });
-
-  listEl.innerHTML = dipilih.length
-    ? dipilih.join("")
-    : '<em class="empty-note">Belum ada pasal dipilih</em>';
-
-  const totalDendaText   = formatUang(totalDenda);
-  const totalTahananText = totalBulan + " Bulan" + (specialTexts.length ? " (+ " + specialTexts.join(", ") + ")" : "");
-
-  totalDendaEl.textContent   = totalDendaText;
-  totalTahananEl.textContent = totalBulan + " Bulan";
-  jumlahPasalEl.textContent  = dipilih.length;
-  specialNoteEl.innerHTML = specialTexts.length
-    ? "⚠️ Catatan khusus: " + specialTexts.join(", ")
-    : "";
-
-  salinPasalText   = pasalCodes.join(", ");
-  salinDendaText   = totalDendaText;
-  salinTahananText = totalTahananText;
-  salinSemuaText = [
-    "SURAT TILANG - KEPOLISIAN KOTA NEXOTIS",
-    `Pelaku: ${namaPelaku.value || "-"}`,
-    `Petugas: ${namaPetugas.value || "-"}`,
-    "",
-    "Pasal yang dilanggar:",
-    pasalTextLines.length ? pasalTextLines.map((l) => "- " + l).join("\n") : "-",
-    "",
-    `Total Denda: ${totalDendaText}`,
-    `Total Masa Tahanan: ${totalTahananText}`,
-  ].join("\n");
+function hapusPasal(kode) {
+  pasalTerpilih.delete(kode);
+  const cb = document.querySelector(`input[data-kode="${kode}"]`);
+  if (cb) cb.checked = false;
+  renderKalkulator();
 }
 
-function salinKeClipboard(teks, tombol) {
-  if (!teks) return;
-  const labelAsli = tombol.innerHTML;
-  const tandai = () => {
-    tombol.textContent = "✅ Disalin";
-    tombol.classList.add("copied");
-    setTimeout(() => {
-      tombol.innerHTML = labelAsli;
-      tombol.classList.remove("copied");
-    }, 1500);
-  };
+function renderKalkulator() {
+  const dipilih = PASAL_DATA.filter((p) => pasalTerpilih.has(p.kode));
+  const tagsEl = document.getElementById("kalkulator-tags");
+  const emptyEl = document.getElementById("kalkulator-empty");
 
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(teks).then(tandai).catch(() => fallbackSalin(teks, tandai));
+  if (!dipilih.length) {
+    emptyEl.style.display = "block";
+    tagsEl.innerHTML = "";
   } else {
-    fallbackSalin(teks, tandai);
+    emptyEl.style.display = "none";
+    tagsEl.innerHTML = dipilih.map((p) => `
+      <span class="pasal-tag">${p.kode} - ${p.pelanggaran} (${fmtUang(p.denda)})
+        <button type="button" onclick="hapusPasal('${p.kode}')">×</button>
+      </span>`).join("");
   }
+
+  const totalDenda = dipilih.reduce((sum, p) => sum + p.denda, 0);
+  document.getElementById("total-denda").textContent = fmtUang(totalDenda);
+  document.getElementById("total-hukuman").textContent = dipilih.length ? dipilih.map((p) => p.hukuman).join(" + ") : "-";
 }
 
-function fallbackSalin(teks, callback) {
-  const ta = document.createElement("textarea");
-  ta.value = teks;
-  ta.style.position = "fixed";
-  ta.style.left = "-9999px";
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand("copy"); } catch (e) { /* noop */ }
-  document.body.removeChild(ta);
-  callback();
-}
-
-document.getElementById("btnCopyPasal").addEventListener("click", function () {
-  salinKeClipboard(salinPasalText, this);
-});
-document.getElementById("btnCopyDenda").addEventListener("click", function () {
-  salinKeClipboard(salinDendaText, this);
-});
-document.getElementById("btnCopyTahanan").addEventListener("click", function () {
-  salinKeClipboard(salinTahananText, this);
-});
-document.getElementById("btnCopySemua").addEventListener("click", function () {
-  salinKeClipboard(salinSemuaText, this);
-});
-document.getElementById("btnResetPasal").addEventListener("click", function () {
-  document.querySelectorAll(".pasal-check").forEach((cb) => { cb.checked = false; });
-  hitung();
-});
-
-document.addEventListener("change", (e) => {
-  if (e.target.classList.contains("pasal-check")) hitung();
-});
-namaPelaku.addEventListener("input", hitung);
-namaPetugas.addEventListener("input", hitung);
-hitung();
+renderPasalSections();
+renderKalkulator();
