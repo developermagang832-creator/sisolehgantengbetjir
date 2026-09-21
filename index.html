@@ -60,20 +60,31 @@ a { color: inherit; text-decoration: none; }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(255, 240, 245, 0.97);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 20px;
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-light) 100%);
+  box-shadow: 0 2px 16px rgba(255, 122, 162, 0.35);
+  padding: 18px 20px;
 }
 .topbar-inner {
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
-.topbar .flag { font-size: 26px; display: inline-block; animation: floatFlag 3s ease-in-out infinite; }
-.topbar h1 { margin: 0; font-size: 16px; font-weight: 700; color: var(--red); letter-spacing: 0.02em; }
-.topbar p { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+.topbar .flag {
+  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 14px;
+  animation: floatFlag 3s ease-in-out infinite;
+}
+.topbar h1 { margin: 0; font-size: 18px; font-weight: 800; color: #fff; letter-spacing: 0.01em; }
+.topbar p { margin: 2px 0 0; font-size: 12.5px; color: rgba(255, 255, 255, 0.9); }
 
 /* ====== Layout ====== */
 .container {
@@ -85,22 +96,25 @@ a { color: inherit; text-decoration: none; }
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 22px;
   margin-bottom: 18px;
   animation: fadeSlideUp 0.45s ease both;
   transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 15px rgba(255, 122, 162, 0.05);
+  box-shadow: 0 6px 20px rgba(255, 122, 162, 0.08);
 }
-.card:hover { border-color: rgba(255, 122, 162, 0.4); box-shadow: 0 4px 20px rgba(255, 122, 162, 0.1); }
+.card:hover { border-color: rgba(255, 122, 162, 0.4); box-shadow: 0 8px 26px rgba(255, 122, 162, 0.13); }
 
 .card h2 {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 800;
   margin: 0 0 4px;
   color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.card .sub { color: var(--faint); font-size: 12px; margin-bottom: 14px; }
+.card .sub { color: var(--faint); font-size: 12.5px; margin-bottom: 14px; line-height: 1.5; }
 
 /* ====== Filter pills ====== */
 .filter-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
@@ -116,25 +130,39 @@ a { color: inherit; text-decoration: none; }
 
 .pasal-section { display: none; }
 .pasal-section.show { display: block; }
-.pasal-section h3 { font-size: 14px; color: var(--red); margin: 0 0 12px; }
+.pasal-section h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--red);
+  margin: 0 0 14px;
+  padding-left: 12px;
+  border-left: 4px solid var(--red);
+}
 
 /* ====== Tabel pasal ====== */
-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
 thead th {
   text-align: left;
   color: var(--muted);
-  font-weight: 600;
-  padding: 8px 10px 8px 0;
-  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 10px 10px 0;
+  border-bottom: 2px solid var(--pink-soft);
 }
-tbody td { padding: 9px 10px 9px 0; border-bottom: 1px solid rgba(255, 182, 193, 0.4); vertical-align: middle; }
+tbody td { padding: 10px 10px 10px 0; border-bottom: 1px solid rgba(255, 182, 193, 0.35); vertical-align: middle; }
 tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.15s ease; }
+tbody tr:nth-child(even) { background: rgba(255, 228, 225, 0.35); }
+tbody tr:hover { background: rgba(255, 122, 162, 0.09); }
 
 table.pasal-table td.chk { width: 30px; text-align: center; }
-table.pasal-table td.chk input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--red); cursor: pointer; }
+table.pasal-table td.chk input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--red); cursor: pointer; }
 table.pasal-table td.deskripsi { font-size: 11px; color: var(--muted); max-width: 280px; }
-table.pasal-table td.denda { color: var(--green); font-weight: 700; white-space: nowrap; }
-table.pasal-table td.hukuman { white-space: nowrap; }
+table.pasal-table td.denda { color: var(--green); font-weight: 800; white-space: nowrap; }
+table.pasal-table td.hukuman { white-space: nowrap; font-weight: 600; }
+table.pasal-table td strong { color: var(--red); font-weight: 800; }
 
 /* ====== Kalkulator ====== */
 .stat-card {
@@ -197,6 +225,135 @@ table.pasal-table td.hukuman { white-space: nowrap; }
   thead th:nth-child(6) { display: none; }
 }
 
+/* ====== Ticker teks berjalan ====== */
+.ticker-wrap {
+  background: #2b1820;
+  color: #ffd6e0;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--red);
+}
+.ticker-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tickerScroll 26s linear infinite;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ====== Kotak pencarian pasal ====== */
+.search-box { position: relative; margin-bottom: 14px; }
+.search-box input {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  background: var(--card);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.search-box input:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(255,122,162,0.15); }
+.search-box .icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: .6; }
+.search-empty { text-align: center; padding: 30px 10px; color: var(--faint); font-size: 12.5px; display: none; }
+.search-empty.show { display: block; }
+tr.row-hidden { display: none !important; }
+
+/* ====== Toast notifikasi ====== */
+.toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+}
+.toast {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(255,122,162,0.25);
+  animation: toastIn 0.4s ease forwards, toastOut 0.4s ease forwards 4.3s;
+  transform: translateX(130%);
+}
+@keyframes toastIn { to { transform: translateX(0); } }
+@keyframes toastOut { to { transform: translateX(130%); opacity: 0; } }
+.toast strong { color: var(--red); display: block; margin-bottom: 2px; font-size: 11.5px; }
+
+/* ====== Modal kunci password ====== */
+.lock-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 67, 74, 0.55);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.lock-overlay.show { display: flex; animation: fadeSlideUp 0.25s ease both; }
+.lock-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 24px;
+  width: 90%;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(255,122,162,0.3);
+  animation: fadeSlideUp 0.35s ease both;
+}
+.lock-box .icon-lock {
+  font-size: 34px;
+  margin-bottom: 6px;
+  display: inline-block;
+  animation: floatFlag 2.4s ease-in-out infinite;
+}
+.lock-box h3 { margin: 6px 0 4px; font-size: 15px; color: var(--red); }
+.lock-box p { margin: 0 0 14px; font-size: 12px; color: var(--faint); }
+.lock-box input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  margin-bottom: 10px;
+  text-align: center;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+.lock-box input:focus { border-color: var(--red); }
+.lock-box.shake { animation: lockShake 0.4s ease; }
+@keyframes lockShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+.lock-error { color: #ef4444; font-size: 11.5px; min-height: 16px; margin-bottom: 6px; }
+.lock-box .btn-row { display: flex; gap: 8px; }
+.lock-box .btn-row .btn { flex: 1; }
+.btn-ghost { background: rgba(255,122,162,0.1); color: var(--red); }
+.btn-ghost:hover { background: rgba(255,122,162,0.18); }
+.lock-success { display: none; font-size: 34px; }
+.lock-success.show { display: block; animation: fadeSlideUp 0.4s ease both; }
+
 </style>
 </head>
 <body>
@@ -206,18 +363,27 @@ table.pasal-table td.hukuman { white-space: nowrap; }
       <span class="flag">🚔</span>
       <div>
         <h1>Kepolisian Nexotis</h1>
-        <p>Kodifikasi Hukum Internal</p>
+        <p>Hukum Internal</p>
       </div>
     </div>
   </header>
 
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
   <div class="container">
 
     <div class="card">
-      <h2>📖 Kodifikasi Hukum Internal</h2>
-      <div class="sub">Sistem pencatatan pelanggaran, akumulasi sanksi &amp; pengarsipan berkas perkara.</div>
+      <h2>Mahkamah Agung</h2>
+      <div class="sub">System pencatatan pasal kalulator.</div>
 
-      <a href="https://san-anderas-police.vercel.app/" target="_blank" rel="noopener" class="btn btn-primary" style="display:inline-block;text-decoration:none;margin-bottom:14px">🌐 Goto Website Kepolisian</a>
+      <button type="button" class="btn btn-primary" style="display:inline-block;margin-bottom:14px" onclick="bukaLock()">Go to Website PD</button>
+
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input type="text" id="searchPasal" placeholder="Cari pasal, kode, atau kata kunci pelanggaran..." oninput="cariPasal(this.value)">
+      </div>
 
       <div class="filter-pills" id="filterBar">
         <button class="filter-btn active" data-cat="0"><span class="swatch"></span>Semua</button>
@@ -233,14 +399,15 @@ table.pasal-table td.hukuman { white-space: nowrap; }
     </div>
 
     <div id="pasal-sections"></div>
+    <div class="search-empty" id="searchEmptyMsg">Yah, gak ketemu. Coba kata kuncinya, jangan asal ngetik doang.</div>
 
     <div class="card">
       <h2>🧮 Kalkulator Kasus Finansial &amp; Sanksi</h2>
-      <div class="sub">Centang pasal di tabel atas — otomatis masuk ke ringkasan di bawah.</div>
+      <div class="sub">Centang pasal diatas nanti akan ada ringkasannya.</div>
       <div id="kalkulator-empty" class="kalkulator-empty">Belum ada pasal dipilih.</div>
       <div id="kalkulator-tags"></div>
       <div class="kalkulator-summary">
-        <div class="stat-card money"><div class="label">Total Denda Kasus</div><div class="value" id="total-denda">$0</div></div>
+        <div class="stat-card money"><div class="label">Total Denda</div><div class="value" id="total-denda">$0</div></div>
         <div class="stat-card hours"><div class="label">Masa Hukuman</div><div class="value" id="total-hukuman" style="font-size:14px">-</div></div>
       </div>
     </div>
@@ -248,8 +415,30 @@ table.pasal-table td.hukuman { white-space: nowrap; }
   </div>
 
   <footer class="site-footer">
-    <p>© Kepolisian Nexotis — Kodifikasi Hukum Internal</p>
+    <p>© Kepolisian Nexotis - Development by Soleh</p>
   </footer>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <div class="lock-overlay" id="lockOverlay">
+    <div class="lock-box" id="lockBox">
+      <div id="lockNormalView">
+        <span class="icon-lock">🔒</span>
+        <h3>Akses Terkunci</h3>
+        <p>Masukkan kata sandi petugas buat lanjut ke website kepolisian.</p>
+        <div class="lock-error" id="lockError"></div>
+        <input type="password" id="lockPassword" placeholder="Kata sandi..." onkeydown="if(event.key==='Enter')cekPassword()">
+        <div class="btn-row">
+          <button class="btn btn-ghost" type="button" onclick="tutupLock()">Batal</button>
+          <button class="btn btn-primary" type="button" onclick="cekPassword()">Masuk</button>
+        </div>
+      </div>
+      <div class="lock-success" id="lockSuccess">
+        ✅
+        <div style="font-size:13px;margin-top:8px;color:var(--text)">Akses diberikan, ngalihin ya...</div>
+      </div>
+    </div>
+  </div>
 
   <script>
 /* =========================================================
@@ -417,8 +606,34 @@ function applyFilter(cat) {
 }
 
 document.querySelectorAll(".filter-btn").forEach((btn) => {
-  btn.addEventListener("click", () => applyFilter(btn.dataset.cat));
+  btn.addEventListener("click", () => {
+    document.getElementById("searchPasal").value = "";
+    document.getElementById("searchEmptyMsg").classList.remove("show");
+    document.querySelectorAll(".pasal-table tbody tr").forEach((tr) => tr.classList.remove("row-hidden"));
+    applyFilter(btn.dataset.cat);
+  });
 });
+
+function cariPasal(query) {
+  const q = query.trim().toLowerCase();
+  const rows = document.querySelectorAll(".pasal-table tbody tr");
+  let totalMatch = 0;
+  rows.forEach((tr) => {
+    const cocok = !q || tr.textContent.toLowerCase().includes(q);
+    tr.classList.toggle("row-hidden", !cocok);
+    if (cocok) totalMatch++;
+  });
+  if (q) {
+    document.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+    document.querySelectorAll(".pasal-section").forEach((section) => {
+      const rowsTampil = section.querySelectorAll("tbody tr:not(.row-hidden)").length;
+      section.classList.toggle("show", rowsTampil > 0);
+    });
+  } else {
+    applyFilter("0");
+  }
+  document.getElementById("searchEmptyMsg").classList.toggle("show", q.length > 0 && totalMatch === 0);
+}
 
 /* ====== Kalkulator ====== */
 const pasalTerpilih = new Set();
@@ -458,6 +673,61 @@ function renderKalkulator() {
 
 renderPasalSections();
 renderKalkulator();
+
+const TICKER_TEXT = "Kadang diem itu lebih berkelas daripada teriak-teriak minta diliat. Yang beneran sibuk gak akan sempet pamer terus tiap hari. Perhatian yang harus dicari-cari biasanya emang gak pernah niat dikasih. Gak semua hal perlu dijadiin status buat validasi orang lain. Tenang aja, orang yang penting gak butuh panggung buat diakui.     ";
+document.getElementById("tickerTrack").textContent = TICKER_TEXT.repeat(3);
+
+const TOAST_MESSAGES = [
+  { judul: "YTTA", teks: "Tingkat percaya dirimu tinggi sekali, sayang tidak dibarengi dengan prestasi" },
+  { judul: "Fyi Aja", teks: "Dikasih hati minta jantung, dikasih fasilitas malah melunjak.." },
+  { judul: "Buat Direnungin", teks: "Cari validasi ke orang lain gak akan pernah cukup kalau ke diri sendiri aja belum cukup." }
+];
+
+function tampilkanToast(pesan) {
+  const container = document.getElementById("toastContainer");
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.innerHTML = "<strong>" + pesan.judul + "</strong>" + pesan.teks;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 4800);
+}
+
+TOAST_MESSAGES.forEach((pesan, i) => {
+  setTimeout(() => tampilkanToast(pesan), 900 + i * 1300);
+});
+
+const PASSWORD_KEPOLISIAN = "NEXOTIS911";
+
+function bukaLock() {
+  document.getElementById("lockOverlay").classList.add("show");
+  document.getElementById("lockNormalView").style.display = "block";
+  document.getElementById("lockSuccess").classList.remove("show");
+  document.getElementById("lockError").textContent = "";
+  document.getElementById("lockPassword").value = "";
+  setTimeout(() => document.getElementById("lockPassword").focus(), 150);
+}
+
+function tutupLock() {
+  document.getElementById("lockOverlay").classList.remove("show");
+}
+
+function cekPassword() {
+  const nilai = document.getElementById("lockPassword").value.trim();
+  const box = document.getElementById("lockBox");
+  if (nilai === PASSWORD_KEPOLISIAN) {
+    document.getElementById("lockNormalView").style.display = "none";
+    document.getElementById("lockSuccess").classList.add("show");
+    setTimeout(() => {
+      window.open("https://san-anderas-police.vercel.app/", "_blank");
+      tutupLock();
+    }, 1100);
+  } else {
+    document.getElementById("lockError").textContent = "Kata sandi salah. Ini bukan buat sembarang orang.";
+    box.classList.remove("shake");
+    void box.offsetWidth;
+    box.classList.add("shake");
+  }
+}
 
   </script>
 </body>
