@@ -4,7 +4,77 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NamaWebsite</title>
-  <link rel="stylesheet" href="popup.css">
+  <style>
+/* Pop up penutupan website. Warna & font bisa diganti di :root */
+:root {
+  --closed-ink: #16213e;
+  --closed-muted: #566074;
+  --closed-accent: #3a4fd7;
+  --closed-accent-dark: #2d3eb0;
+}
+
+.closed-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(10, 16, 36, 0.72);
+  backdrop-filter: blur(3px);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.closed-box {
+  width: 100%;
+  max-width: 440px;
+  padding: 2rem 1.75rem;
+  background: #fff;
+  color: var(--closed-ink);
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+.closed-box h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.closed-box p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--closed-muted);
+}
+
+.closed-box .closed-date {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--closed-ink);
+}
+
+.closed-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.8rem;
+  background: var(--closed-accent);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background-color 0.15s ease;
+}
+
+.closed-btn:hover { background: var(--closed-accent-dark); }
+
+.closed-btn:focus-visible {
+  outline: 3px solid #f4b63f;
+  outline-offset: 3px;
+}
+  </style>
 </head>
 <body>
 
