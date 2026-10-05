@@ -24,6 +24,7 @@
   background: rgba(10, 16, 36, 0.72);
   backdrop-filter: blur(3px);
   font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  animation: closed-fade 0.45s ease-out both;
 }
 
 .closed-box {
@@ -35,6 +36,7 @@
   border-radius: 18px;
   text-align: center;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  animation: closed-pop 0.6s cubic-bezier(0.2, 0.9, 0.3, 1.15) 0.15s both;
 }
 
 .closed-box h2 {
@@ -49,6 +51,8 @@
   line-height: 1.6;
   color: var(--closed-muted);
 }
+
+.closed-text p + p { margin-top: 0.85rem; }
 
 .closed-box .closed-date {
   margin-top: 1rem;
@@ -70,6 +74,20 @@
 
 .closed-btn:hover { background: var(--closed-accent-dark); }
 
+@keyframes closed-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes closed-pop {
+  from { opacity: 0; transform: translateY(28px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .closed-overlay, .closed-box { animation: none; }
+}
+
 .closed-btn:focus-visible {
   outline: 3px solid #f4b63f;
   outline-offset: 3px;
@@ -85,11 +103,15 @@
        aria-labelledby="closed-title" aria-describedby="closed-desc">
     <div class="closed-box">
       <h2 id="closed-title">Website ini sudah ditutup</h2>
-      <p id="closed-desc">
+      <div id="closed-desc" class="closed-text">
         <!-- Ganti dengan teks kamu -->
-        Terima kasih sudah bersama NamaWebsite selama ini. Layanan kami resmi
-        berhenti beroperasi dan seluruh data sudah dihapus.
-      </p>
+        <p>Terima kasih sudah bersama NamaWebsite selama ini. Dengan berat hati kami
+        informasikan bahwa layanan kami resmi berhenti beroperasi dan website ini
+        tidak dapat diakses lagi.</p>
+        <p>Seluruh data pengguna sudah dihapus sesuai jadwal penutupan. Jika kamu
+        masih punya pertanyaan atau membutuhkan bantuan, tim kami siap membantu
+        lewat email di bawah ini.</p>
+      </div>
       <p class="closed-date">Ditutup pada <time datetime="2026-12-31">31 Desember 2026</time></p>
       <a class="closed-btn" href="mailto:halo@namawebsite.com">Hubungi kami</a>
     </div>
