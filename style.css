@@ -135,41 +135,11 @@ a { color: inherit; }
   color: var(--amber);
 }
 
-/* Countdown */
-.countdown {
-  margin-top: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.6rem;
-}
-
-.countdown__item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.75rem 0.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
-}
-
-.countdown__num {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-
-.countdown__label {
-  font-size: 0.82rem;
-  color: rgba(244, 246, 250, 0.7);
-}
-
-.countdown__done {
-  grid-column: 1 / -1;
-  padding: 0.75rem 0;
-  text-align: center;
-  font-weight: 600;
+.hero__note {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: rgba(244, 246, 250, 0.75);
+  max-width: 34ch;
 }
 
 /* ---------- Section umum ---------- */
